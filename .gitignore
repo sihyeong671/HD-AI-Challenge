@@ -1,0 +1,6 @@
+__pychace__/
+csv/
+data/
+AutogluonModels/
+.venv/
+.DS_store

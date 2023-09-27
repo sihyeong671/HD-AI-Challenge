@@ -1,5 +1,6 @@
-## Feature Engineering
+# EDA
 
-1. 대기시작 시점 추가
-2. 주일, 주말 추가
-3. 
+## TODO
+1. 결측치 검사
+2. numberic feature 상관관계 확인
+3. 휴일 확인

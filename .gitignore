@@ -4,4 +4,5 @@ data/
 AutogluonModels/
 .venv/
 .DS_store
-/catboost_infogit 
+/catboost_info
+/models

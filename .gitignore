@@ -6,3 +6,5 @@ AutogluonModels/
 .DS_store
 /catboost_info
 /models
+.pt_tmp/
+saved_models/

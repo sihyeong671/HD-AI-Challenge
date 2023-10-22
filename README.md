@@ -11,3 +11,9 @@ conda create -n dacon python=3.10
 # EDA
 
 ## TODO
+
+---
+
+1. outlier 제거 실험
+2. month까지만 feature에 넣기
+3. 

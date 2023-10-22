@@ -2,8 +2,6 @@ import pandas as pd
 import autogluon
 import numpy as np
 from autogluon.tabular import TabularDataset, TabularPredictor
-import bisect
-from sklearn.preprocessing import LabelEncoder
 
 train_df = pd.read_parquet("../data/HD_data/train_v2_remain.parquet")
 test_df = pd.read_parquet("../data/HD_data/test_v2_remain.parquet")

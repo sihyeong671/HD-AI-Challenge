@@ -2,10 +2,17 @@
 ```sh
 conda create -n dacon python=3.10
 
-# install mamba
-# install autogluon
-# install seaborn
-# install ipykernel 
+conda install -y pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=11.7 -c pytorch -c nvidia
+
+pip install lit
+pip install make
+pip install autogluon
+
+conda install -c anaconda seaborn
+conda install -c anaconda ipykernel
+
+pip install pytorch_tabular
+
 ```
 
 # EDA

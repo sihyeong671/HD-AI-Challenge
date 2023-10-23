@@ -12,6 +12,7 @@ conda install -c anaconda seaborn
 conda install -c anaconda ipykernel
 
 pip install pytorch_tabular
+pip install optuna
 
 ```
 

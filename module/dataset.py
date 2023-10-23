@@ -11,5 +11,5 @@ class HDData(Dataset):
   
   def __getitem__(self, index: int):
     if self.y is None:
-      return torch.tensor(self.X).float()
-    return torch.tensor(self.X).float(), torch.tensor(self.y).float()
+      return torch.tensor(self.X.iloc[index]).float()
+    return torch.tensor(self.X.iloc[index]).float(), torch.tensor(self.y.iloc[index]).float()

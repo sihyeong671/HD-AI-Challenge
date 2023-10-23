@@ -2,7 +2,7 @@ import argparse
 
 from module.utils import Config, seed_everything
 from module.trainer import Trainer
-from module.predictor import Predictor
+# from module.predictor import Predictor
 
 
 if __name__ == "__main__":
@@ -14,11 +14,11 @@ if __name__ == "__main__":
   parser.add_argument('--lr', type=float, default=3e-4)
   parser.add_argument('--mode', type=str, default="train")
   parser.add_argument('--num_workers', type=int, default=4) 
-  parser.add_argument('--batch_size', type=int, default=64)
+  parser.add_argument('--batch_size', type=int, default=128)
   parser.add_argument('--model_name', type=str, default="MLP")
-  parser.add_argument('--train_datapath', type=str, default="data/train.csv")
-  parser.add_argument('--test_datapath', type=str, default="data/test.csv")
-  parser.add_argument('--submit_datapath', type=str, default="data/sample_submission.csv")
+  parser.add_argument('--train_datapath', type=str, default="../data/HD_data/train_v1_remove.parquet")
+  parser.add_argument('--test_datapath', type=str, default="../data/HD_data/test_v1_remove.parquet")
+  parser.add_argument('--submit_datapath', type=str, default="../data/HD_data/sample_submission.csv")
   parser.add_argument('--detail', default="v0")
   args = parser.parse_args()
   

@@ -14,5 +14,5 @@ eval_metric = "mean_absolute_error"
 
 predictor = TabularPredictor(
     label=label, problem_type='regression', eval_metric=eval_metric,
-).fit(train_data, presets="best_quality", num_gpus=4, num_bag_folds=5, num_stack_levels=1)
+).fit(train_data, presets="best_quality", num_gpus=4, num_bag_folds=7, num_stack_levels=1)
 

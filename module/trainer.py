@@ -13,6 +13,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_absolute_error
 
 from module.utils import Config
 from module.dataset import HDData
@@ -25,7 +26,7 @@ class Trainer:
   
   def setup(self):
     
-    ## setup_data
+    # setup_data
     train_df = pd.read_parquet(self.config.TRAIN_DATAPATH) # 270
     
     
@@ -53,9 +54,8 @@ class Trainer:
     
     ## setup model & loss_fn & optimizer & lr_scheduler
     self.model = MLP(
-      input_dim=270,
-      hidden_dim=2048,
-      bottle_neck_dim=64,
+      input_dim=271,
+      hidden_dim=1024,
       output_dim=1
     )
     
@@ -74,6 +74,7 @@ class Trainer:
     self.model.to(self.config.DEVICE)
     
     best_model = None
+    early_stop_cnt = 0
     best_val_loss = sys.maxsize
     
     for epoch in range(1, self.config.EPOCHS+1):
@@ -95,14 +96,23 @@ class Trainer:
       
       train_loss /= len(self.train_dataloader)
 
-      val_loss = self._valid()
+      val_loss, mae = self._valid()
       
+      early_stop_cnt += 1
+
       if self.scheduler is not None:
         self.scheduler.step(val_loss)
 
       if val_loss < best_val_loss:
+        early_stop_cnt = 0
         best_val_loss = val_loss
         best_model = deepcopy(self.model)
+
+      print(f"[{epoch} / {self.config.EPOCHS}]\ttrain_loss: {train_loss:.4f}\tval_loss: {val_loss:.4f}\tval_mae: {mae:.4f}")
+
+      if early_stop_cnt >= 10:
+        print("Early Stopping...")
+        break
     
     os.makedirs("ckpt/", exist_ok=True)
     torch.save(best_model, f"ckpt/{self.config.MODEL_NAME}_{self.config.DETAIL}.pth")
@@ -111,14 +121,17 @@ class Trainer:
     self.model.eval()
     with torch.no_grad():
       val_loss = 0
+      mae_score = 0
       for inputs, labels in tqdm(self.val_dataloader):
         inputs = inputs.to(self.config.DEVICE)
         labels = labels.to(self.config.DEVICE)
   
         outputs = self.model(inputs).squeeze(dim=-1)
         loss = self.loss_fn(outputs, labels)
+        mae = mean_absolute_error(outputs, labels)
         
         val_loss += loss.item()
+        mae_score += mae
       
-      return val_loss / len(self.val_dataloader)
+      return (val_loss / len(self.val_dataloader)), (mae_score / len(self.val_dataloader))
       

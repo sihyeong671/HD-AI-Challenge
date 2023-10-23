@@ -2,7 +2,7 @@ import argparse
 
 from module.utils import Config, seed_everything
 from module.trainer import Trainer
-# from module.predictor import Predictor
+from module.predictor import Predictor
 
 
 if __name__ == "__main__":

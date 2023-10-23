@@ -2,7 +2,6 @@ import os
 import sys
 from copy import deepcopy
 
-
 from tqdm import tqdm
 import pandas as pd
 import numpy as np
@@ -27,7 +26,7 @@ class Trainer:
   def setup(self):
     
     # setup_data
-    train_df = pd.read_parquet(self.config.TRAIN_DATAPATH) # 270
+    train_df = pd.read_parquet(self.config.TRAIN_DATAPATH) # 271
     
     
     # split
@@ -128,7 +127,7 @@ class Trainer:
   
         outputs = self.model(inputs).squeeze(dim=-1)
         loss = self.loss_fn(outputs, labels)
-        mae = mean_absolute_error(outputs, labels)
+        mae = mean_absolute_error(outputs.detach().cpu().numpy(), labels.cpu().numpy())
         
         val_loss += loss.item()
         mae_score += mae

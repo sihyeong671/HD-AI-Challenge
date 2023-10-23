@@ -8,3 +8,4 @@ AutogluonModels/
 /models
 .pt_tmp/
 saved_models/
+ckpt/
